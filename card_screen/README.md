@@ -1,18 +1,28 @@
-# Portfolio - card_screen
+# Portfolio - Card Screen
 
-Scraping odds from different sportbooks.
-File structure is diveded into two folders, local and remote. When used live, google sheets works as a remote database handeling telegram alerts. 
+A project for scraping odds from different sportsbooks.
 
-Issue to solve:
-Alert favourable bets through telegram bot for specific bets above a treshold (min_odds) across multiple sportsbooks
-min_odds taken from external model, not visible here
+## File Structure
 
-Libraries:
-request
-gspread
-telegram bot api
-google apps scripts
-selenium
-bash
+The project is divided into two main folders:
+- **Local**
+- **Remote**
 
+When used live, Google Sheets acts as a remote database, handling Telegram alerts.
 
+## Issue to Solve
+
+The goal is to:
+- Alert favorable bets through a Telegram bot for specific bets above a threshold (`min_odds`) across multiple sportsbooks.
+
+**Note:** `min_odds` is determined by an external model, which is not included in this repository.
+
+## Libraries Used
+
+The following libraries and tools are utilized in this project:
+- `request`
+- `gspread`
+- `telegram bot API`
+- `Google Apps Scripts`
+- `selenium`
+- `bash`
