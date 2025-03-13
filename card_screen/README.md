@@ -1,6 +1,6 @@
 # Portfolio - Card Screen
 
-A project for scraping odds from different sportsbooks.
+A project for scraping odds from different sportsbooks. Finalized december 2023.
 
 ## File Structure
 
@@ -13,7 +13,7 @@ When used live, Google Sheets acts as a remote database, handling Telegram alert
 ## Issue to Solve
 
 The goal is to:
-- Alert favorable bets through a Telegram bot for specific bets above a threshold (`min_odds`) across multiple sportsbooks.
+Alert favorable bets through a Telegram bot for specific bets above a threshold (`min_odds`) across multiple sportsbooks.
 
 **Note:** `min_odds` is determined by an external model, which is not included in this repository.
 
