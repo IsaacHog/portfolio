@@ -1,6 +1,6 @@
 # Portfolio - Odds Screen
 
-A project for scraping odds (specifically bookings in the top 5 soccer leagues) from different sportsbooks. Finalized December 2023.
+A project for scraping odds (specifically team and total shots in the top 5 soccer leagues) from 2 dfferent sportsbooks. Finalized February 2024.
 
 ## File Structure
 
@@ -13,7 +13,7 @@ When used live, Google Sheets acts as a remote database, handling Telegram alert
 ## Issue to Solve
 
 The goal is to:
-Alert favorable bets through a Telegram bot for specific bets above a threshold (`min_odds`) across multiple sportsbooks.
+Alert favorable bets through a Telegram bot for specific bets above a threshold (`min_odds`) across kambi and bet365 sportsbooks.
 
 **Note:** `min_odds` is determined by an external model, which is not included in this repository.
 
