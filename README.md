@@ -14,4 +14,4 @@ This repository highlights my work on:
 **Note**: Many of the techniques and strategies demonstrated here remain effective in 2025, reflecting their adaptability and resilience.
 
 ## Project List
-1. **Card Screen**: A project for scraping odds (specifically bookings in the top 5 soccer leagues) from different sportsbooks. Finalized December 2023.
+1. **Odds Screen**: A project for scraping odds (specifically bookings in the top 5 soccer leagues) from different sportsbooks. Finalized December 2023.

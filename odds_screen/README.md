@@ -1,6 +1,6 @@
-# Portfolio - Card Screen
+# Portfolio - Odds Screen
 
-A project for scraping odds from different sportsbooks. Finalized december 2023.
+A project for scraping odds (specifically bookings in the top 5 soccer leagues) from different sportsbooks. Finalized December 2023.
 
 ## File Structure
 
