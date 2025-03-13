@@ -1,6 +1,6 @@
 # Portfolio - Odds Notifier
 
-A project for scraping odds (specifically team and total shots in the top 5 soccer leagues) from 2 dfferent sportsbooks. Finalized February 2024.
+A project for scraping odds (specifically team and total shots in the top 5 soccer leagues) from 2 dfferent sportsbooks. Bet365 uses **Selenium** to scrape data, Kambi uses **HTTP Requests**. Finalized February 2024.
 
 ## File Structure
 
