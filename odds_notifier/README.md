@@ -2,6 +2,9 @@
 
 A project for scraping odds (specifically team and total shots in the top 5 soccer leagues) from 2 dfferent sportsbooks. Bet365 uses **Selenium** to scrape data, Kambi uses **HTTP Requests**. Finalized February 2024.
 
+Video demo:
+[https://youtube.com/watch?v=OrSmxxhBWPM](https://www.youtube.com/watch?v=OrSmxxhBWPM)
+
 ## File Structure
 
 The project is divided into two main folders:
