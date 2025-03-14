@@ -28,6 +28,7 @@ This repository highlights my work on:
 1. **Odds Notifier**: A project for scraping odds (specifically team and total shots in the top 5 soccer leagues) from sportsbooks. Finalized February 2024.
 
 Notable projects not yet listed in detail:
+- **Auto bettor bot**: Created an automated bot to place bets seamlessly across 8 different sportsbooks.
 - **Sportsbook Scraping Scripts**: Developed robust scripts for scraping data from 8+ different sportsbooks, utilizing reverse engineering techniques.
 - **Live Betting Models**: Designed two simple models for live betting on soccer and tennis in smaller leagues, effectively exploiting overfitted live-odds algorithms on specific sportsbooks.
 - **Odds Screen GUI**: Built a google sheets GUI to monitor and set alerts for odds thresholds across 6 different sportsbooks.
