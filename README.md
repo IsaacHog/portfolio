@@ -6,10 +6,10 @@ Welcome to my portfolio, where I present scripts and demo projects developed for
 I am currently pursuing a **Data Scientist** degree at EC-Utbildning (2024–2026), focusing on statistical data analysis, machine learning, SQL, Power BI and R programming.
 Prior to this, I completed a **Software Development** engineering course at NTI-Gymnasiet (2022–2023), where I honed my skills in React, Git, SCRUM and Python.
 
-In addition to my academic journey, I founded and managed a team of 8 people focused on identifying and leveraging software mistakes in sportsbooks from 2021 to 2024. I developed software and databases to handle and execute bets effectively, applying my knowledge in automation and statistical analysis.  
+In addition to my academic journey, I founded and managed a team of 8 people focused on identifying and leveraging software mistakes in sportsbooks from 2020 to 2024. I developed software and databases to handle and execute bets effectively, applying my knowledge in automation and statistical analysis.  
 
 ## My Software Development Journey in Sportsbetting
-Over the course of these 3 years, I have continually evolved in crafting software solutions, striving for greater efficiency and cleaner code. Reflecting on my journey through approximately 20 projects, there has been a noticeable progression in code quality. Initially, my scripts were large and unwieldy; however, they gradually transformed into more modular structures and ultimately culminated in efficient algorithms.  
+Over the course of these 4 years, I have continually evolved in crafting software solutions, striving for greater efficiency and cleaner code. Reflecting on my journey through approximately 20 projects, there has been a noticeable progression in code quality. Initially, my scripts were large and unwieldy; however, they gradually transformed into more modular structures and ultimately culminated in efficient algorithms.  
 
 This repository is dedicated to showcasing only the most well-crafted and impactful projects from that journey in terms of programming.
 
