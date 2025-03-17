@@ -1,4 +1,4 @@
-# Portfolio - Sports Betting
+# Portfolio
 
 Welcome to my portfolio, where I present scripts and demo projects developed for sports betting between **2022** and **2024**.  
 
