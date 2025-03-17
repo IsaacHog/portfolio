@@ -1,6 +1,4 @@
-# Portfolio
-
-Welcome to my portfolio, where I present scripts and demo projects developed for sports betting between **2022** and **2024**.  
+# Portfolio Isaac Högfeldt
 
 ## About Me  
 I am currently pursuing a **Data Scientist** degree at EC-Utbildning (2024–2026), focusing on statistical data analysis, machine learning, SQL, Power BI and R programming.
