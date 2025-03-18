@@ -68,66 +68,48 @@ function compareOdds(queueData, bookieBetData, queueSheet, bookieColumn) {
     return results;
 }
 
-
-function Bet365Shots() {
-  const bet365ShotsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Bet365Shots');
-  const bet365BetData = loadJsonFromSheet(bet365ShotsSheet, 0, 0);
-  if (bet365BetData == []) {
-    console.log("bet365BetData == []")  
+function ShotsSheet(bookie, output_column) {
+  const bookieShotsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(`${bookie}Shots`);
+  const bookieBetData = loadJsonFromSheet(bookieShotsSheet, 0, 0);
+  if (bookieBetData == []) {
+    console.log(`${bookie}BetData == []`)  
     return
   }
 
   const shotsQueueSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('ShotsQueue');
-  const queueDataFairOdds = loadJsonFromSheet(shotsQueueSheet, 2, 1);
+  const queueDataFairOdds = loadJsonFromSheet(shotsQueueSheet, 3, 1);
 
-  let output = compareOdds(queueDataFairOdds, bet365BetData, shotsQueueSheet, 1);
-  console.log(output);
-}
-
-function KambiShots() {
-  const kambiShotsSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('kambiShots');
-  const kambiBetData = loadJsonFromSheet(kambiShotsSheet, 0, 0);
-  if (kambiBetData == []) {
-    console.log("kambiBetData == []")  
-    return
-  }
-
-  const shotsQueueSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('ShotsQueue');
-  const queueDataFairOdds = loadJsonFromSheet(shotsQueueSheet, 2, 1);
-
-  let output = compareOdds(queueDataFairOdds, kambiBetData, shotsQueueSheet, 2);
+  let output = compareOdds(queueDataFairOdds, bookieBetData, shotsQueueSheet, output_column);
   console.log(output);
 }
 
 function AlertShots() {
+  console.log("Looking for shots bets to alert...")
   const shotsQueueSheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('ShotsQueue');
 
   function loadBookieOddsJson(data) {
     let unpackedData = [];
     
     for (let i = 1; i < data.length; i++) {
-      try {
-        let bet365JsonString = data[i][0] ? JSON.parse(data[i][0]) : null;
-        let kambiJsonString = data[i][1] ? JSON.parse(data[i][1]) : null;
-        
-        if (data[i][4] == "x") {
-          continue
-        }
-        
-
-        if (!bet365JsonString || !kambiJsonString) { // SKIP IF BOTH BOOKIES DONT HAVE THE BET??
-          continue
-        }
-        if (bet365JsonString) {
-          var matchName = bet365JsonString.match_name
-        }
-        else {
-          var matchName = bet365JsonString.match_name
-        }
-        unpackedData.push({ matchName: matchName, bet365: bet365JsonString, kambi: kambiJsonString, queueIndex: i });
-      } catch (e) {
-        Logger.log(`Error parsing row ${i + 1}: ${e.message}`);
+      let bet365JsonString = data[i][0] ? JSON.parse(data[i][0]) : null;
+      let kambiJsonString = data[i][1] ? JSON.parse(data[i][1]) : null;
+      let dsobJsonString = data[i][2] ? JSON.parse(data[i][2]) : null;
+      
+      if (data[i][5] == "x") {
+        continue
       }
+      
+
+      if (bet365JsonString) {
+        var matchName = bet365JsonString.match_name
+      }
+      else if (kambiJsonString) {
+        var matchName = kambiJsonString.match_name
+      }
+      else {
+        continue
+      }
+      unpackedData.push({ matchName: matchName, bet365: bet365JsonString, kambi: kambiJsonString, dsob: dsobJsonString, queueIndex: i });
     }
 
     return unpackedData;
@@ -148,12 +130,13 @@ function AlertShots() {
       let queueIndex = data.queueIndex
       let bet365Lines = data.bet365 ? data.bet365.lines : null;
       let kambiLines = data.kambi ? data.kambi.lines : null;
+      let dsobLines = data.dsob ? data.dsob.lines : null;
 
       // Helper function to find or create a bet alert entry
       function findOrCreateBetAlert(matchName) {
         let existingBet = betsToAlert.find(bet => bet.matchName === matchName);
         if (!existingBet) {
-          existingBet = { matchName: matchName, bet365: { total: [], home: [], away: [] }, kambi: { total: [], home: [], away: [] } };
+          existingBet = { matchName: matchName, bet365: { total: [], home: [], away: [] }, kambi: { total: [], home: [], away: [] }, dsob: { total: [], home: [], away: [] } };
           betsToAlert.push(existingBet);
         }
         return existingBet;
@@ -167,7 +150,7 @@ function AlertShots() {
             if (markets[i].ev > 1.1) {
               let betAlert = findOrCreateBetAlert(matchName);
               betAlert.bet365[market].push( { line: markets[i].line, odds: markets[i].odds, ev: markets[i].ev } );
-              shotsQueueSheet.getRange(queueIndex+1, 5).setValue("x")
+              shotsQueueSheet.getRange(queueIndex+1, 6).setValue("x")
             }
           }
         }
@@ -181,7 +164,21 @@ function AlertShots() {
             if (markets[i].ev > 1.1) {
               let betAlert = findOrCreateBetAlert(matchName);
               betAlert.kambi[market].push( { line: markets[i].line, odds: markets[i].odds, ev: markets[i].ev } );
-              shotsQueueSheet.getRange(queueIndex+1, 5).setValue("x")
+              shotsQueueSheet.getRange(queueIndex+1, 6).setValue("x")
+            }
+          }
+        }
+      }
+
+      // Process dsobLines
+      if (dsobLines) {
+        for (let market in dsobLines) {
+          let markets = dsobLines[market];
+          for (let i = 0; i < markets.length; i++) {
+            if (markets[i].ev > 1.1) {
+              let betAlert = findOrCreateBetAlert(matchName);
+              betAlert.dsob[market].push( { line: markets[i].line, odds: markets[i].odds, ev: markets[i].ev } );
+              shotsQueueSheet.getRange(queueIndex+1, 6).setValue("x")
             }
           }
         }
@@ -198,22 +195,24 @@ function AlertShots() {
       let message = `${bet.matchName}\n\n`;
 
       ["total", "home", "away"].forEach(market => {
-        if (bet.bet365[market].length < 0 || bet.kambi[market].length < 0) return;
+        if (bet.bet365[market].length === 0 && bet.kambi[market].length === 0 && bet.dsob[market].length === 0){
+          return
+        } 
 
-        if (bet.bet365[market].length > 0 || bet.kambi[market].length > 0) {
-          message += `${market} shots:\n`;
-
-          if (bet.bet365[market].length > 0) {
-            message += `-- Bet365:\n${bet.bet365[market].map(betDetail => `${betDetail.line} @${betDetail.odds} EV: ${betDetail.ev}\n`).join('')}`;
-          }
-          if (bet.kambi[market].length > 0) {
-            message += `-- Kambi:\n${bet.kambi[market].map(betDetail => `${betDetail.line} @${betDetail.odds} EV: ${betDetail.ev}\n`).join('')}`;
-          }
-          message += `\n`;
+        message += `${market} shots:\n`;
+        if (bet.bet365[market].length > 0) {
+          message += `-- Bet365:\n${bet.bet365[market].map(betDetail => `${betDetail.line} @${betDetail.odds} EV: ${betDetail.ev}\n`).join('')}`;
         }
-      });
+        if (bet.kambi[market].length > 0) {
+          message += `-- Kambi:\n${bet.kambi[market].map(betDetail => `${betDetail.line} @${betDetail.odds} EV: ${betDetail.ev}\n`).join('')}`;
+        }
+        if (bet.dsob[market].length > 0) {
+          message += `-- Greek:\n${bet.dsob[market].map(betDetail => `${betDetail.line} @${betDetail.odds} EV: ${betDetail.ev}\n`).join('')}`;
+        }
 
-      sendText(-4553153544, message);
+        message += `\n`;
+        sendText(null, message);
+      });
     });
   }
   sendAlerts(betsToAlert)
