@@ -6,7 +6,7 @@ import json
 import time
 import requests
 import traceback
-import unidecode
+from unidecode import unidecode
 
 todays_date = datetime.today()
 
@@ -47,7 +47,7 @@ def get_events():
                     continue
                 events.append({
                     'id': event['event']['id'],
-                    'match_name': unidecode.unidecode(event['event']['englishName']),
+                    'match_name': unidecode(event['event']['englishName']),
                     'path': json.dumps(event['event']['path']),
                     'eventStart': (datetime.strptime(event['event']['start'], "%Y-%m-%dT%H:%M:%SZ") + timedelta(hours=1)).isoformat(),
                 })
@@ -92,9 +92,9 @@ def get_betoffers(events):
 
                 if 'Total Shots by ' in bet_offer['criterion']['label']: # team totals
                     home_team, away_team = event['match_name'].split(" - ")
-                    if home_team in unidecode.unidecode(bet_offer['criterion']['label']):
+                    if home_team in unidecode(bet_offer['criterion']['label']):
                         market = f"home"
-                    elif away_team in unidecode.unidecode(bet_offer['criterion']['label']):
+                    elif away_team in unidecode(bet_offer['criterion']['label']):
                         market = f"away"
                     betoffers[-1]['lines'][market].append({
                         'line': f"O{line}",
